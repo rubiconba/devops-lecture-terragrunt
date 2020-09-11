@@ -22,9 +22,9 @@ terraform {
 
 # Include all settings from the root terragrunt.hcl file
 include {
-# find_in_parent_folders() searches up the directory tree from the current .tfvars 
-# file and returns the relative path to to the first terraform.tfvars in a parent folder 
-# or exit with an error if no such file is found
+  # find_in_parent_folders() searches up the directory tree from the current .tfvars 
+  # file and returns the relative path to to the first terraform.tfvars in a parent folder 
+  # or exit with an error if no such file is found
   path = find_in_parent_folders()
 }
 
