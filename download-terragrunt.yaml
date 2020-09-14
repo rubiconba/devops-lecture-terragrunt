@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# Template for installing terragrunt and downloading the secrets file
+# Template for installing terragrunt
 # ---------------------------------------------------------------------------------------------------------------------
 
 steps:
@@ -27,9 +27,3 @@ steps:
       filePath: './scripts/add-terragrunt-to-path.sh'
       arguments: 'terragrunt'
     displayName: 'Add terragrunt to path'
-
-  - task: DownloadSecureFile@1
-    displayName: 'Download secrets file'
-    name: secrets
-    inputs:
-      secureFile: $(SECRETS_FILE)

@@ -39,8 +39,7 @@ stages:
 # Plan stage
 #
 # In this stage we are performing validation and creating the plan for the infrastrucure, but before we can do that we
-# first need to download terragrunt and the secrets file located in Azure DevOps. The secrets file contains values
-# of external resources like Azure AD. We will use that file to populate our key vault.
+# first need to download terragrunt.
 # ---------------------------------------------------------------------------------------------------------------------
 
 - stage: Plan
@@ -48,7 +47,7 @@ stages:
   jobs:
   - job: Plan
     steps:
-    - template: download-terragrunt-and-secrets.yaml
+    - template: download-terragrunt.yaml
 
     - script: terragrunt validate-all --terragrunt-working-dir live
       displayName: 'Run terragrunt validate-all'
@@ -61,8 +60,6 @@ stages:
         filePath: './scripts/terragrunt-plan.sh'
         arguments: 'plan.log'
       displayName: 'Run terragrunt plan-all'
-      env:
-        PATH_TO_SECRETS: $(secrets.secureFilePath)
 
     - task: CopyFiles@2
       inputs:
@@ -81,7 +78,7 @@ stages:
 #
 # In this stage we are applying/deplyoing our changes to the infrastructure. 
 # This stage will only run on the master and develop branches and needs a manual approval.
-# Similarly to the Plan stage we first need to download terragrunt and the secrets file. After that we apply our
+# Similarly to the Plan stage we first need to download terragrunt. After that we apply our
 # changes by calling terragrunt apply-all.
 # ---------------------------------------------------------------------------------------------------------------------
 
@@ -103,7 +100,7 @@ stages:
             - download: none
             - checkout: self
 
-            - template: download-terragrunt-and-secrets.yaml
+            - template: download-terragrunt.yaml
 
             - script: chmod +x ./scripts/terragrunt-apply.sh
               displayName: 'Enable script permissions'
@@ -113,8 +110,6 @@ stages:
                 filePath: './scripts/terragrunt-apply.sh'
                 arguments: 'apply.log'
               displayName: 'Run terragrunt apply-all'
-              env:
-                PATH_TO_SECRETS: $(secrets.secureFilePath)
             
             - task: CopyFiles@2
               inputs:
