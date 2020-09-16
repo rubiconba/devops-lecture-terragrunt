@@ -11,7 +11,7 @@ First you will need to login with your Azure account:
 
 ```az login```
 
-Next you we will need to create the remote state, before we can create the infrastructure. 
+Next you will need to create the remote state, before we can create the infrastructure. 
 
 Create a resource group with the storage account and a container for our remote state. Provide the environment variables `REMOTE_STATE_RESOURCE_GROUP`, `REMOTE_STATE_STORAGE_ACCOUNT` and `REMOTE_STATE_STORAGE_CONTAINER` or update the values directly in the remote state block of the terragrunt configuration in the `live/terragrunt.hcl` file.
 
