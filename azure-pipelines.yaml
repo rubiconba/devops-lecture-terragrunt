@@ -88,7 +88,7 @@ stages:
   variables:
     ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
       environment: 'prod'
-    ${{ if ne(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+    ${{ if ne(variables['Build.SourceBranch'], 'refs/heads/develop') }}:
       environment: 'dev'
   jobs:
     - deployment: DeployInfrastructure
